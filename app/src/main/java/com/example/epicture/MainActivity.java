@@ -4,20 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import okhttp3.OkHttpClient;
+//import okhttp3.OkHttpClient;
 
 public class MainActivity extends AppCompatActivity {
-    private OkHttpClient httpClient;
+//    private OkHttpClient httpClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fetchData();
+//        fetchData();
     }
 
-    private void fetchData() {
-        httpClient = new OkHttpClient.Builder().build();
-    }
+//    private void fetchData() {
+//        httpClient = new OkHttpClient.Builder().build();
+//    }
 
 }
