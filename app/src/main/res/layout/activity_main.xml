@@ -15,4 +15,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_of_photos">
+
+    </android.support.v7.widget.RecyclerView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
