@@ -51,10 +51,10 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp" />
 
-<!--    <android.support.v7.widget.RecyclerView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/rv_of_photos">-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_of_photos">
+    </androidx.recyclerview.widget.RecyclerView>
 
-<!--    </android.support.v7.widget.RecyclerView>-->
 </LinearLayout>
