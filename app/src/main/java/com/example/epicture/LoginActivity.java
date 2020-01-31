@@ -25,6 +25,7 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
@@ -57,8 +58,8 @@ public class LoginActivity extends AppCompatActivity {
 //    private OkHttpClient httpClient;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
+    private TextView txtName, txtEmail;
     private CircleImageView circleImageView;
-    private TextView txtName,txtEmail;
     private OkHttpClient httpClient;
     private static final String TAG = "MainActivity";
 
@@ -147,7 +148,6 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields", "first_name,last_name,email,id");
         request.setParameters(parameters);
         request.executeAsync();
-        fetchData();
     }
 
     private void fetchData() {
