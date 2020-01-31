@@ -18,13 +18,38 @@
         android:layout_marginRight="30dp"
         app:srcCompat="@drawable/logo_epi" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/profile_pic" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/profile_name"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="3dp"
+        android:id="@+id/profile_email"/>
+
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="350dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp" />
 
 <!--    <android.support.v7.widget.RecyclerView-->
 <!--        android:layout_width="match_parent"-->
