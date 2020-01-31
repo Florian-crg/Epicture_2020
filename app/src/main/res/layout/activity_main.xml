@@ -24,7 +24,6 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/profile_pic" />
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,10 +51,5 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_of_photos">
-    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>
