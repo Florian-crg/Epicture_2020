@@ -11,28 +11,40 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class GaleryActivity extends AppCompatActivity {
 
+
+    Fragment home = null;
+    Fragment search = null;
+    Fragment favorites = null;
+    Fragment selectedFragment = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nav_bar);
+
+        home = new HomeFragment();
+        search = new SearchFragment();
+        favorites = new FavoritesFragment();
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+        if (savedInstanceState == null) {
+            selectedFragment = home;
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    selectedFragment).commit();
+        }
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-
                     switch (item.getItemId()) {
                         case R.id.nav_home:
-                            selectedFragment = new HomeFragment();
+                            selectedFragment = home;
                             break;
                         case R.id.nav_favorites:
-                            selectedFragment = new FavoritesFragment();
+                            selectedFragment = favorites;
                             break;
                         case R.id.nav_search:
-                            selectedFragment = new SearchFragment();
+                            selectedFragment = search;
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
