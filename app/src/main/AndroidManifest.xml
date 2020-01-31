@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/icon_epicture"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GaleryActivity"></activity>
+        <activity android:name=".GaleryActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
