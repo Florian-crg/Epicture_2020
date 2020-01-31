@@ -53,7 +53,7 @@ import okhttp3.Response;
 
 //import okhttp3.OkHttpClient;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 //    private OkHttpClient httpClient;
     private CallbackManager callbackManager;
     private LoginButton loginButton;
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 txtName.setText("");
                 txtEmail.setText("");
                 circleImageView.setImageResource(0);
-                Toast.makeText(MainActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "User Logged out", Toast.LENGTH_LONG).show();
             }
             else
                 loadUserProfile(currentAccessToken);
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                     RequestOptions requestOptions = new RequestOptions();
                     requestOptions.dontAnimate();
 
-                    Glide.with(MainActivity.this).load(image_url).into(circleImageView);
+                    Glide.with(LoginActivity.this).load(image_url).into(circleImageView);
 
 
                 } catch (JSONException e) {
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onBindViewHolder(PhotoVH holder, int position) {
-                Picasso.with(MainActivity.this).load("https://i.imgur.com/" +
+                Picasso.with(LoginActivity.this).load("https://i.imgur.com/" +
                         photos.get(position).id + ".jpg").into(holder.photo);
                 holder.title.setText(photos.get(position).title);
             }
