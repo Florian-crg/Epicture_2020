@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">epicture</string>
-    <string name="facebook_app_id">119657249371668</string> <string name="fb_login_protocol_scheme">fb119657249371668</string>
+    <string name="facebook_app_id">119657249371668</string>
+    <string name="fb_login_protocol_scheme">fb119657249371668</string>
 </resources>
