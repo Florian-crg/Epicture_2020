@@ -54,16 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         test.setText("Login");
         String n = "";
         this.continue_button = findViewById(R.id.con_button);
-        continue_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
-                startActivity(next_activity);
-            }
-        });
 
-        if (!account_id.equals(n)) {
-        }
         if (uri != null){
             String mainPart = uri.toString().split("#")[1];
             String[] arguments = mainPart.split("&");
@@ -81,6 +72,15 @@ public class LoginActivity extends AppCompatActivity {
             account_username = argument4.split("=")[1];
             account_id = argument5.split("=")[1];
             test.setText("Hi "+account_username +"\nYour id is : "+account_id+"\nYour ");
+            continue_button.setText("Continue");
+            continue_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                    startActivity(next_activity);
+                }
+            });
+
 //            List valeursPOST = new ArrayList(); // Création du tableau
 //            valeursPOST.add(new BasicNameValuePair("token", token.toString())); // Ajoutons des valeurs
 //            valeursPOST.add(new BasicNameValuePair("token", token.toString())); // Ajoutons des valeurs
