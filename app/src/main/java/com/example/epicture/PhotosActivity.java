@@ -1,47 +1,42 @@
 package com.example.epicture;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.fragment.app.Fragment;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.view.MenuItem;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class HttpHandler {
+public class PhotosActivity extends AppCompatActivity {
 
     private OkHttpClient httpClient;
-    private static final String TAG = "HomeActivity";
+    private static final String TAG = "PhotoActivity";
 
-    public HttpHandler() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_photos);
         fetchData();
     }
 
@@ -75,7 +70,13 @@ public class HttpHandler {
                         }
                         photo.title = item.getString("title");
                         photos.add(photo);
-                        Log.d(TAG, photo.title);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                render(photos);
+                            }
+                        });
                     }
                 }
                 catch (Exception e) {
@@ -85,8 +86,42 @@ public class HttpHandler {
         });
     }
 
-    private static class Photo {
-        String id;
-        String title;
+    private static class PhotoVH extends RecyclerView.ViewHolder {
+        ImageView photo;
+        TextView title;
+
+        public PhotoVH(View itemView) {
+            super(itemView);
+        }
+    }
+
+    private void render(final List<Photo> photos) {
+        RecyclerView rv = (RecyclerView)findViewById(R.id.rv_of_photos);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+        RecyclerView.Adapter<PhotoVH> adapter = new RecyclerView.Adapter<PhotoVH>() {
+            @NonNull
+            @Override
+            public PhotoVH onCreateViewHolder(ViewGroup parent, int viewType) {
+                PhotoVH vh = new PhotoVH(getLayoutInflater().inflate(R.layout.item, null));
+                vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
+                vh.title = (TextView) vh.itemView.findViewById(R.id.title);
+                return vh;
+            }
+
+            @Override
+            public void onBindViewHolder(PhotoVH holder, int position) {
+                Picasso.with(PhotosActivity.this).load("https://i.imgur.com/" +
+                        photos.get(position).id + ".jpg").into(holder.photo);
+                holder.title.setText(photos.get(position).title);
+            }
+
+            @Override
+            public int getItemCount() {
+                return photos.size();
+            }
+        };
+
+        rv.setAdapter(adapter);
     }
 }

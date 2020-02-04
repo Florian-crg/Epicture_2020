@@ -11,11 +11,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class GaleryActivity extends AppCompatActivity {
 
-
     Fragment home = null;
     Fragment search = null;
     Fragment favorites = null;
+    Fragment profile = null;
     Fragment selectedFragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,7 @@ public class GaleryActivity extends AppCompatActivity {
         home = new HomeFragment();
         search = new SearchFragment();
         favorites = new FavoritesFragment();
+        profile = new ProfileFragment();
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         if (savedInstanceState == null) {
@@ -45,6 +47,9 @@ public class GaleryActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_search:
                             selectedFragment = search;
+                            break;
+                        case R.id.nav_profile:
+                            selectedFragment = profile;
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
