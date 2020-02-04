@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private String clientId = "bb0c749c6403fd2";
     private String secretId = "f8f8fd3262e093a9b46074ddac708309c08ca71c";
     private TextView test;
-//    private Button continue_button;
+    private Button continue_button;
 
 
     @Override
@@ -53,6 +53,14 @@ public class LoginActivity extends AppCompatActivity {
         this.test = findViewById(R.id.tests);
         test.setText("Login");
         String n = "";
+        this.continue_button = findViewById(R.id.con_button);
+        continue_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                startActivity(next_activity);
+            }
+        });
 
         if (!account_id.equals(n)) {
         }
