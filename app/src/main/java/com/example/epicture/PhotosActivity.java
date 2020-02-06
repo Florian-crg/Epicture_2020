@@ -2,6 +2,9 @@ package com.example.epicture;
 
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +31,8 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 
+import static com.example.epicture.HttpHandler.putFavorites;
+
 public class PhotosActivity extends AppCompatActivity {
 
     private OkHttpClient httpClient;
@@ -36,6 +41,7 @@ public class PhotosActivity extends AppCompatActivity {
     private ImageButton favorites_btn;
     private ImageButton search_btn;
     private ImageButton profil_btn;
+    private ImageButton make_fav_btn;
     private String clientId = "bb0c749c6403fd2";
     private static String userID;
     private static  List<Photo> mPhotos;
@@ -95,7 +101,9 @@ public class PhotosActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void set_fav(View view) {
+        putFavorites();
+    }
 
     private void build () {
         try {

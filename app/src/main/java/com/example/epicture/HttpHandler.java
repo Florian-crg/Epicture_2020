@@ -55,16 +55,16 @@ public class HttpHandler {
     public static void getLoginData(String accessToken) {
         mAccessToken = accessToken;
     }
-}
 
-   /*public static void putFavorites() {
+
+   public static void putFavorites() {
         httpClient = new OkHttpClient().newBuilder().build();
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM).build();
         Request request = new Request.Builder()
                 .url("https://api.imgur.com/3/image/{{imageHash}}/favorite")
                 .method("POST", body)
-                .addHeader("Authorization", "Bearer " + "accessToken" )
+                .addHeader("Authorization", "Bearer " + mAccessToken )
                 .build();
     }
 
@@ -77,13 +77,12 @@ public class HttpHandler {
         Request request = new Request.Builder()
                 .url("https://api.imgur.com/3/album/{{albumHash}}/favorite")
                 .method("POST", body)
-                .addHeader("Authorization", "Bearer " + "accessToken" )
+                .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
         try {
             Response response = client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
-
-
+    }
+}

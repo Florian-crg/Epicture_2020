@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button send_image;
     private  String tag = null;
     private ImageView Image;
-
     private static final int PICK_IMAGE_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
 

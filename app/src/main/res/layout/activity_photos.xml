@@ -36,7 +36,11 @@
         android:id="@+id/rv_of_photos">
     </androidx.recyclerview.widget.RecyclerView>
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorPrimary">
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +84,7 @@
             android:layout_toEndOf="@+id/search_button"
             android:layout_alignParentBottom="true"
             />
-
+</RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
 
