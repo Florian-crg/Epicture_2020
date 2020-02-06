@@ -50,6 +50,7 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
                 startActivity(next_activity);
             }
         });
@@ -57,6 +58,8 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
+
                 startActivity(next_activity);
             }
         });
@@ -64,6 +67,7 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
                 startActivity(next_activity);
             }
         });
@@ -71,6 +75,7 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
                 startActivity(next_activity);
             }
         });
