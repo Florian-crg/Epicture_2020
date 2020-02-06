@@ -1,9 +1,6 @@
+package com.example.epicture;
+
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.example.epicture.Photo;
-import com.example.epicture.PhotosActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,11 +16,11 @@ import okhttp3.Response;
 
 public class HttpHandler {
     private static final String TAG = "HttpHandler";
-    private String clientId = "bb0c749c6403fd2";
+    private static String clientId = "bb0c749c6403fd2";
 
-    private OkHttpClient httpClient;
+    private static OkHttpClient httpClient;
 
-    private void fetchData() {
+    public static void fetchData() {
         httpClient = new OkHttpClient.Builder().build();
         Request request = new Request.Builder()
                 .url("https://api.imgur.com/3/gallery/user/rising/0.json")
@@ -43,7 +40,7 @@ public class HttpHandler {
                     JSONObject data = new JSONObject(response.body().string());
                     JSONArray items = data.getJSONArray("data");
                     final List<Photo> photos = new ArrayList<Photo>();
-                    PhotosActivity.callBack(photos);
+                    PhotosActivity.callBack(photos, items);
                 }
                 catch (Exception e) {
                     Log.e("JSONerr" , "Something went wrong.");

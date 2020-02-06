@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,15 +20,9 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class PhotosActivity extends AppCompatActivity {
 
@@ -42,6 +35,7 @@ public class PhotosActivity extends AppCompatActivity {
     private String clientId = "bb0c749c6403fd2";
     private static String userID;
     private static  List<Photo> mPhotos;
+    private static JSONArray mItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +74,35 @@ public class PhotosActivity extends AppCompatActivity {
                 startActivity(next_activity);
             }
         });
-        fetchData();
+        HttpHandler.fetchData();
+        build();
     }
 
+    private void build () {
+        try {
+            for(int i = 0; i < mItems.length(); i++) {
+                JSONObject item = mItems.getJSONObject(i);
+                Photo photo = new Photo();
+                if(item.getBoolean("is_album")) {
+                    photo.id = item.getString("cover");
+                } else {
+                    photo.id = item.getString("id");
+                }
+                photo.title = item.getString("title");
+                mPhotos.add(photo);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        render(mPhotos);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.e("JSONerr" , "Something went wrong.");
+        }
+    }
+/*
     private void fetchData() {
         httpClient = new OkHttpClient.Builder().build();
         Request request = new Request.Builder()
@@ -127,7 +147,7 @@ public class PhotosActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
     private static class PhotoVH extends RecyclerView.ViewHolder {
         ImageView photo;
@@ -173,8 +193,9 @@ public class PhotosActivity extends AppCompatActivity {
         userID = UserID;
     }
 
-    public static void callBack( List<Photo> photos) {
+    public static void callBack( List<Photo> photos, JSONArray items)
+    {
          mPhotos = photos;
-
+         mItems = items;
     }
 }
