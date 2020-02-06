@@ -43,20 +43,20 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">
-                <intent-filter>
-                    <action android:name="android.intent.action.VIEW" />
-                    <category android:name="android.intent.category.DEFAULT" />
-                    <category android:name="android.intent.category.BROWSABLE" />
-                    <!-- Accepts URIs that begin with "https://app.getpostman.com/oauth2” -->
-                    <data android:scheme="https"
-                        android:host="app.getpostman.com"
-                        android:pathPrefix="/oauth2/callback" />
-                    <!-- note that the leading "/" is required for pathPrefix-->
-                    <!-- Accepts URIs that begin with "app.getpostman://oauth2” -->
-                    <data android:scheme="app.getpostman"
-                        android:host="oauth2/callback" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "https://app.getpostman.com/oauth2” -->
+                <data android:scheme="https"
+                    android:host="app.getpostman.com"
+                    android:pathPrefix="/oauth2/callback" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+                <!-- Accepts URIs that begin with "app.getpostman://oauth2” -->
+                <data android:scheme="app.getpostman"
+                    android:host="oauth2/callback" />
 
-                </intent-filter>
+            </intent-filter>
         </activity>
     </application>
 

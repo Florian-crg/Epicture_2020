@@ -1,10 +1,13 @@
 package com.example.epicture;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,11 +35,48 @@ public class PhotosActivity extends AppCompatActivity {
 
     private OkHttpClient httpClient;
     private static final String TAG = "PhotoActivity";
+    private ImageButton home_btn;
+    private ImageButton favorites_btn;
+    private ImageButton search_btn;
+    private ImageButton profil_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+        this.home_btn = findViewById(R.id.home_button);
+        this.favorites_btn = findViewById(R.id.favorites_button);
+        this.search_btn = findViewById(R.id.search_button);
+        this.profil_btn = findViewById(R.id.profil_button);
+
+        home_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                startActivity(next_activity);
+            }
+        });
+        favorites_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                startActivity(next_activity);
+            }
+        });
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                startActivity(next_activity);
+            }
+        });
+        profil_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                startActivity(next_activity);
+            }
+        });
         fetchData();
     }
 
