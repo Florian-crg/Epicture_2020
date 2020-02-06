@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            getUserID(account_id);
+            getUserID(access_token);
 //            List valeursPOST account_id= new ArrayList(); // Création du tableau
 //            valeursPOST.add(new BasicNameValuePair("token", token.toString())); // Ajoutons des valeurs
 //            valeursPOST.add(new BasicNameValuePair("token", token.toString())); // Ajoutons des valeurs
