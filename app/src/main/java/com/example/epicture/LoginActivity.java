@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+<<<<<<< HEAD
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -118,7 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             pickImageFromGallery();
-
                         }
                     }
 
@@ -146,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
+
         }
 
     }

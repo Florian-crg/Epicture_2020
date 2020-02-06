@@ -4,11 +4,14 @@ package com.example.epicture;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,15 +24,9 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class PhotosActivity extends AppCompatActivity {
 
@@ -39,6 +36,10 @@ public class PhotosActivity extends AppCompatActivity {
     private ImageButton favorites_btn;
     private ImageButton search_btn;
     private ImageButton profil_btn;
+    private String clientId = "bb0c749c6403fd2";
+    private static String userID;
+    private static  List<Photo> mPhotos;
+    private static JSONArray mItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +50,18 @@ public class PhotosActivity extends AppCompatActivity {
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
 
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(PhotosActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.filters));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);
+
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
                 startActivity(next_activity);
             }
         });
@@ -60,6 +69,8 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
+
                 startActivity(next_activity);
             }
         });
@@ -67,6 +78,7 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
                 startActivity(next_activity);
             }
         });
@@ -74,56 +86,38 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                finish();
                 startActivity(next_activity);
             }
         });
-        fetchData();
+        HttpHandler.fetchData();
+        build();
     }
 
-    private void fetchData() {
-        httpClient = new OkHttpClient.Builder().build();
-        Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/gallery/user/rising/0.json")
-                .header("Authorization","Client-ID bb0c749c6403fd2")
-                .header("User-Agent","epicture")
-                .build();
 
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "An error has occurred " + e);
-            }
+    private void build () {
+        try {
+            for(int i = 0; i < mItems.length(); i++) {
+                JSONObject item = mItems.getJSONObject(i);
+                Photo photo = new Photo();
+                if(item.getBoolean("is_album")) {
+                    photo.id = item.getString("cover");
+                } else {
+                    photo.id = item.getString("id");
+                }
+                photo.title = item.getString("title");
+                mPhotos.add(photo);
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    JSONObject data = new JSONObject(response.body().string());
-                    JSONArray items = data.getJSONArray("data");
-                    final List<Photo> photos = new ArrayList<Photo>();
-                    for(int i=0; i<items.length();i++) {
-                        JSONObject item = items.getJSONObject(i);
-                        Photo photo = new Photo();
-                        if(item.getBoolean("is_album")) {
-                            photo.id = item.getString("cover");
-                        } else {
-                            photo.id = item.getString("id");
-                        }
-                        photo.title = item.getString("title");
-                        photos.add(photo);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                render(photos);
-                            }
-                        });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        render(mPhotos);
                     }
-                }
-                catch (Exception e) {
-                    Log.e("JSONerr" , "Something went wrong.");
-                }
+                });
             }
-        });
+        } catch (Exception e) {
+            Log.e("JSONerr" , "Something went wrong.");
+        }
     }
 
     private static class PhotoVH extends RecyclerView.ViewHolder {
@@ -163,5 +157,16 @@ public class PhotosActivity extends AppCompatActivity {
         };
 
         rv.setAdapter(adapter);
+    }
+
+    public static void getUserID(String UserID) {
+        Log.d("TAG", UserID);
+        userID = UserID;
+    }
+
+    public static void callBack( List<Photo> photos, JSONArray items)
+    {
+         mPhotos = photos;
+         mItems = items;
     }
 }

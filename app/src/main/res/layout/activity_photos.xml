@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,58 +8,79 @@
     tools:context=".LoginActivity"
     android:orientation="vertical">
 
-<RelativeLayout
 
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_home_black_24dp"
-        android:id="@+id/home_button"
-        android:layout_alignParentStart="true"
-        />
-
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_favorite_black_24dp"
-        android:id="@+id/favorites_button"
-        android:layout_toRightOf="@+id/home_button"/>
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         app:srcCompat="@drawable/logo_epi" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_search_black_24dp"
-        android:id="@+id/search_button"
-        android:layout_toLeftOf="@+id/profil_button"
-/>
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_person_black_24dp"
-        android:id="@+id/profil_button"
-        android:layout_alignParentEnd="true"
-        />
-</RelativeLayout>
+    <RelativeLayout
 
+        android:layout_width="match_parent"
 
-
+        android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:id="@+id/rv_of_photos">
     </androidx.recyclerview.widget.RecyclerView>
 
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_home_active_24dp"
+            android:id="@+id/home_button"
+            android:layout_toStartOf="@+id/favorites_button"
+            android:layout_alignParentBottom="true"
+
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_favorite_black_24dp"
+            android:id="@+id/favorites_button"
+            android:layout_toStartOf="@+id/hide_button"
+            android:layout_alignParentBottom="true"
+            />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:id="@+id/hide_button"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_black_24dp"
+            android:id="@+id/search_button"
+            android:layout_toEndOf="@+id/hide_button"
+            android:layout_alignParentBottom="true"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_person_black_24dp"
+            android:id="@+id/profil_button"
+            android:layout_toEndOf="@+id/search_button"
+            android:layout_alignParentBottom="true"
+            />
+
+    </RelativeLayout>
 </LinearLayout>
+
