@@ -4,10 +4,14 @@ package com.example.epicture;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,6 +50,13 @@ public class PhotosActivity extends AppCompatActivity {
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
 
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(PhotosActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.filters));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);
+
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +94,7 @@ public class PhotosActivity extends AppCompatActivity {
         build();
     }
 
+
     private void build () {
         try {
             for(int i = 0; i < mItems.length(); i++) {
@@ -107,52 +119,6 @@ public class PhotosActivity extends AppCompatActivity {
             Log.e("JSONerr" , "Something went wrong.");
         }
     }
-/*
-    private void fetchData() {
-        httpClient = new OkHttpClient.Builder().build();
-        Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/gallery/user/rising/0.json")
-                .addHeader("Authorization","Client-ID " + clientId )
-                .header("User-Agent","epicture")
-                .build();
-
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "An error has occurred " + e);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    JSONObject data = new JSONObject(response.body().string());
-                    JSONArray items = data.getJSONArray("data");
-                    final List<Photo> photos = new ArrayList<Photo>();
-                    for(int i=0; i<items.length();i++) {
-                        JSONObject item = items.getJSONObject(i);
-                        Photo photo = new Photo();
-                        if(item.getBoolean("is_album")) {
-                            photo.id = item.getString("cover");
-                        } else {
-                            photo.id = item.getString("id");
-                        }
-                        photo.title = item.getString("title");
-                        photos.add(photo);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                render(photos);
-                            }
-                        });
-                    }
-                }
-                catch (Exception e) {
-                    Log.e("JSONerr" , "Something went wrong.");
-                }
-            }
-        });
-    }*/
 
     private static class PhotoVH extends RecyclerView.ViewHolder {
         ImageView photo;
