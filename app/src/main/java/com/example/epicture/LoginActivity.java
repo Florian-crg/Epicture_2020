@@ -22,7 +22,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-<<<<<<< HEAD
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -105,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             continue_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent next_activity = new Intent(getApplicationContext(), GaleryActivity.class);
+                    Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
                     startActivity(next_activity);
                 }
             });
