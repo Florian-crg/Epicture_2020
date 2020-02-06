@@ -17,8 +17,8 @@ import okhttp3.Response;
 public class HttpHandler {
     private static final String TAG = "HttpHandler";
     private static String clientId = "bb0c749c6403fd2";
-
     private static OkHttpClient httpClient;
+    private static String mAccessToken;
 
     public static void fetchData() {
         httpClient = new OkHttpClient.Builder().build();
@@ -40,7 +40,7 @@ public class HttpHandler {
                     JSONObject data = new JSONObject(response.body().string());
                     JSONArray items = data.getJSONArray("data");
                     final List<Photo> photos = new ArrayList<Photo>();
-                    PhotosActivity.callBack(photos, items);
+                    PhotosActivity.callBackPhoto(photos, items);
                 }
                 catch (Exception e) {
                     Log.e("JSONerr" , "Something went wrong.");
@@ -48,5 +48,7 @@ public class HttpHandler {
             }
         });
     }
-
+    public static void getLoginData(String accessToken) {
+        mAccessToken = accessToken;
+    }
 }

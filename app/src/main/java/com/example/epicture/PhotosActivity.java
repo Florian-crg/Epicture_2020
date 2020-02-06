@@ -40,6 +40,7 @@ public class PhotosActivity extends AppCompatActivity {
     private static String userID;
     private static  List<Photo> mPhotos;
     private static JSONArray mItems;
+    private static String mAccessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class PhotosActivity extends AppCompatActivity {
         this.favorites_btn = findViewById(R.id.favorites_button);
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
+
+        HttpHandler.fetchData();
+        build();
 
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
 
@@ -90,8 +94,6 @@ public class PhotosActivity extends AppCompatActivity {
                 startActivity(next_activity);
             }
         });
-        HttpHandler.fetchData();
-        build();
     }
 
 
@@ -164,9 +166,10 @@ public class PhotosActivity extends AppCompatActivity {
         userID = UserID;
     }
 
-    public static void callBack( List<Photo> photos, JSONArray items)
+    public static void callBackPhoto( List<Photo> photos, JSONArray items)
     {
          mPhotos = photos;
          mItems = items;
     }
+
 }
