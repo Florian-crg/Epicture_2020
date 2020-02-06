@@ -11,23 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import android.widget.Toast;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import javax.net.ssl.HttpsURLConnection;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import static com.example.epicture.PhotosActivity.getUserID;
 
 public class LoginActivity extends AppCompatActivity {
     private ImageButton login_button;
@@ -81,7 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-//            List valeursPOST = new ArrayList(); // Création du tableau
+            getUserID(access_token);
+//            List valeursPOST account_id= new ArrayList(); // Création du tableau
 //            valeursPOST.add(new BasicNameValuePair("token", token.toString())); // Ajoutons des valeurs
 //            valeursPOST.add(new BasicNameValuePair("token", token.toString())); // Ajoutons des valeurs
 //            valeursPOST.add(new BasicNameValuePair("token", token.toString())); // Ajoutons des valeurs

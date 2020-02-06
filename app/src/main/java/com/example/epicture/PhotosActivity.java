@@ -39,6 +39,9 @@ public class PhotosActivity extends AppCompatActivity {
     private ImageButton favorites_btn;
     private ImageButton search_btn;
     private ImageButton profil_btn;
+    private String clientId = "bb0c749c6403fd2";
+    private static String userID;
+    private static  List<Photo> mPhotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class PhotosActivity extends AppCompatActivity {
         httpClient = new OkHttpClient.Builder().build();
         Request request = new Request.Builder()
                 .url("https://api.imgur.com/3/gallery/user/rising/0.json")
-                .header("Authorization","Client-ID bb0c749c6403fd2")
+                .addHeader("Authorization","Client-ID " + clientId )
                 .header("User-Agent","epicture")
                 .build();
 
@@ -163,5 +166,15 @@ public class PhotosActivity extends AppCompatActivity {
         };
 
         rv.setAdapter(adapter);
+    }
+
+    public static void getUserID(String UserID) {
+        Log.d("TAG", UserID);
+        userID = UserID;
+    }
+
+    public static void callBack( List<Photo> photos) {
+         mPhotos = photos;
+
     }
 }
