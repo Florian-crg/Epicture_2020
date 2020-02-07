@@ -57,7 +57,7 @@ public class HttpHandler {
     }
 
 
-   public static void putFavorites() {
+  /* public static void putFavorites() {
         httpClient = new OkHttpClient().newBuilder().build();
         MediaType mediaType = MediaType.parse("text/plain");
         RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM).build();
@@ -84,5 +84,5 @@ public class HttpHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } */
 }

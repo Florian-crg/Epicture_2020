@@ -31,7 +31,6 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 
-import static com.example.epicture.HttpHandler.putFavorites;
 
 public class PhotosActivity extends AppCompatActivity {
 
@@ -41,7 +40,6 @@ public class PhotosActivity extends AppCompatActivity {
     private ImageButton favorites_btn;
     private ImageButton search_btn;
     private ImageButton profil_btn;
-    private ImageButton make_fav_btn;
     private String clientId = "bb0c749c6403fd2";
     private static String userID;
     private static  List<Photo> mPhotos;
@@ -95,14 +93,11 @@ public class PhotosActivity extends AppCompatActivity {
         profil_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), ProfileActivity.class);
                 finish();
                 startActivity(next_activity);
             }
         });
-    }
-    public void set_fav(View view) {
-        putFavorites();
     }
 
     private void build () {

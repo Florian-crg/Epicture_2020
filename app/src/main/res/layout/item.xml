@@ -24,6 +24,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/make_fav_btn"
-        android:onClick="set_fav"
         android:src="@drawable/ic_favorite_black_24dp"/>
 </androidx.cardview.widget.CardView>
