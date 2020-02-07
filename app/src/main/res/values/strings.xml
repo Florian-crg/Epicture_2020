@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">epicture</string>
     <string name="facebook_app_id">119657249371668</string>
     <string name="fb_login_protocol_scheme">fb119657249371668</string>
