@@ -8,13 +8,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import static com.example.epicture.LoginActivity.account_username;
+
 public class ProfileActivity  extends AppCompatActivity {
 
     private ImageButton home_btn;
     private ImageButton favorites_btn;
     private ImageButton search_btn;
     private ImageButton profil_btn;
-    private TextView id_profile;
     private TextView name_profile;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class ProfileActivity  extends AppCompatActivity {
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
         this.name_profile = findViewById(R.id.name_profile);
-        this.id_profile = findViewById(R.id.id_profile);
+
 
 
         home_btn.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +43,7 @@ public class ProfileActivity  extends AppCompatActivity {
         favorites_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), FavoriteActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
                 finish();
 
                 startActivity(next_activity);
@@ -51,7 +52,7 @@ public class ProfileActivity  extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), SearchActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
                 finish();
                 startActivity(next_activity);
             }
@@ -64,7 +65,6 @@ public class ProfileActivity  extends AppCompatActivity {
                 startActivity(next_activity);
             }
         });
-        id_profile.setText(R.string.id_not_found);
-        name_profile.setText(R.string.name_not_found);
+        name_profile.setText(account_username);
     }
 }

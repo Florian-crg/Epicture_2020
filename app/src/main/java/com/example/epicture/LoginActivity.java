@@ -34,12 +34,16 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -51,16 +55,18 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE= 1;
     private ImageButton login_button;
-    private String clientId = "bb0c749c6403fd2";
+    private static String clientId = "bb0c749c6403fd2";
     private TextView test;
     private Button continue_button;
     private Button choose_image;
     private Button send_image;
     private  String tag = null;
     private ImageView Image;
+    private static final String TAG = "HttpHandler";
     private static final int PICK_IMAGE_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
-
+    public static String account_username;
+    private static OkHttpClient httpClient;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -78,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         String uri = getIntent().getDataString();
         String access_token = "";
         String refresh_token = "";
-        String account_username = "";
+        account_username = "";
         String account_id = "";
         test.setText("Login");
         String n = "";
@@ -96,8 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             account_username = argument4.split("=")[1];
             account_id = argument5.split("=")[1];
 
-            test.setText("Hi " + account_username + "\nYour id is : " + account_id + "\nYour ");
-
+            test.setText(account_username);
             continue_button.setText("Continue");
 
             continue_button.setOnClickListener(new View.OnClickListener() {
@@ -149,8 +154,19 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void UploadImage () throws IOException {
-
+    public static void Avatar() throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("https://api.imgur.com/3/account/"+account_username)
+                .method("GET", null)
+                .addHeader("Authorization", "Client-ID "+clientId)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void pickImageFromGallery(){

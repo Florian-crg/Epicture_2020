@@ -24,13 +24,6 @@
         android:textSize="30sp"
         android:layout_gravity="center"
         android:id="@+id/name_profile" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/id_not_found"
-        android:textSize="30sp"
-        android:layout_gravity="center"
-        android:id="@+id/id_profile" />
 
     <RelativeLayout
         android:layout_width="match_parent"
