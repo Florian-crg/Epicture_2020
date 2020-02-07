@@ -1,6 +1,8 @@
 package com.example.epicture;
 
 
+import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -11,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,17 +37,25 @@ import okhttp3.OkHttpClient;
 
 public class PhotosActivity extends AppCompatActivity {
 
+    // Local variable
     private OkHttpClient httpClient;
-    private static final String TAG = "PhotoActivity";
     private ImageButton home_btn;
     private ImageButton favorites_btn;
     private ImageButton search_btn;
     private ImageButton profil_btn;
-    private String clientId = "bb0c749c6403fd2";
-    private static String userID;
+    // Constante variable
+    private static final String TAG = "PhotoActivity";
+    private static final String clientId = "bb0c749c6403fd2";
+
+    // Private shared variable
     private static  List<Photo> mPhotos;
     private static JSONArray mItems;
     private static String mAccessToken;
+    private static String userID;
+    static Activity activity;
+
+    // Shared variable
+    private static String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +65,31 @@ public class PhotosActivity extends AppCompatActivity {
         this.favorites_btn = findViewById(R.id.favorites_button);
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
+//        HttpHandler.fetchData();
+//        build();
 
-        HttpHandler.fetchData();
-        build();
+        activity = this;
 
-        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner=(Spinner)findViewById(R.id.spinner);
+        String[] filters=getResources().getStringArray(R.array.filters);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.spinner,R.id.text, filters);
+        spinner.setAdapter(adapter);
 
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(PhotosActivity.this,
-                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.filters));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                selectedItem = parent.getItemAtPosition(position).toString();
+                HttpHandler.fetchData();
+                build();
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                Log.d("TAG", "Error");
+            }
+        });
 
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +126,26 @@ public class PhotosActivity extends AppCompatActivity {
         });
     }
 
-    private void build () {
+    public static void Filters() {
+        if(selectedItem != null) {
+            if (selectedItem.equals("Most Viral")) {
+                HttpHandler.section = "hot/";
+                HttpHandler.sort = "viral/";
+            } else if (selectedItem.equals("Newest")) {
+                HttpHandler.section = "top/";
+                HttpHandler.sort = "time/";
+            } else if (selectedItem.equals("Rising")) {
+                HttpHandler.section = "user/";
+                HttpHandler.sort = "rising/";
+                HttpHandler.showV = "?showViral=false";
+            } else {
+                Log.d(TAG, "Might be a problem");
+            }
+//                activity.recreate();
+        }
+    }
+
+    public void build () {
         try {
             for(int i = 0; i < mItems.length(); i++) {
                 JSONObject item = mItems.getJSONObject(i);
@@ -120,6 +165,7 @@ public class PhotosActivity extends AppCompatActivity {
                     }
                 });
             }
+
         } catch (Exception e) {
             Log.e("JSONerr" , "Something went wrong.");
         }
@@ -176,3 +222,7 @@ public class PhotosActivity extends AppCompatActivity {
     }
 
 }
+
+
+
+
