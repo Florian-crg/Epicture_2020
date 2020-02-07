@@ -76,7 +76,7 @@ public class PhotosActivity extends AppCompatActivity {
         favorites_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), FavoriteActivity.class);
                 finish();
 
                 startActivity(next_activity);
@@ -85,7 +85,7 @@ public class PhotosActivity extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), SearchActivity.class);
                 finish();
                 startActivity(next_activity);
             }
