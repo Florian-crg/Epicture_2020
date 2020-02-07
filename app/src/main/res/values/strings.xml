@@ -7,4 +7,8 @@
         <item>Newest</item>
         <item>Rising</item>
     </string-array>
+    <string name="id_not_found">ID not found</string>
+    <string name="name_not_found">Name not found</string>
+    <string name="favorite_text_view">Favorite page</string>
+    <string name="search_text_view">Search page</string>
 </resources>

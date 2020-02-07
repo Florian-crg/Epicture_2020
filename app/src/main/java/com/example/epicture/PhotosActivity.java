@@ -4,6 +4,9 @@ package com.example.epicture;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -30,6 +33,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
+
 
 public class PhotosActivity extends AppCompatActivity {
 
@@ -98,7 +102,7 @@ public class PhotosActivity extends AppCompatActivity {
         favorites_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), FavoriteActivity.class);
                 finish();
 
                 startActivity(next_activity);
@@ -107,7 +111,7 @@ public class PhotosActivity extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), SearchActivity.class);
                 finish();
                 startActivity(next_activity);
             }
@@ -115,37 +119,29 @@ public class PhotosActivity extends AppCompatActivity {
         profil_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), ProfileActivity.class);
                 finish();
                 startActivity(next_activity);
             }
         });
     }
 
-//    public static void reload() {
-//
-//        static finish();
-//        startActivity(getIntent());
-//    }
-
     public static void Filters() {
         if(selectedItem != null) {
             if (selectedItem.equals("Most Viral")) {
                 HttpHandler.section = "hot/";
                 HttpHandler.sort = "viral/";
-//                activity.recreate();
             } else if (selectedItem.equals("Newest")) {
                 HttpHandler.section = "top/";
                 HttpHandler.sort = "time/";
-//                activity.recreate();
             } else if (selectedItem.equals("Rising")) {
                 HttpHandler.section = "user/";
                 HttpHandler.sort = "rising/";
                 HttpHandler.showV = "?showViral=false";
-//                activity.recreate();
             } else {
                 Log.d(TAG, "Might be a problem");
             }
+//                activity.recreate();
         }
     }
 
