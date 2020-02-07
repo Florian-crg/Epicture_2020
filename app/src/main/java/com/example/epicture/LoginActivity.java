@@ -5,17 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.net.Uri;
+
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,19 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -58,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button send_image;
     private  String tag = null;
     private ImageView Image;
+    private static String access_token;
+
 
     private static final int PICK_IMAGE_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
@@ -77,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         this.Image = findViewById(R.id.image_taken);
 
         String uri = getIntent().getDataString();
-        String access_token = "";
+        access_token = "";
         String refresh_token = "";
         String account_username = "";
         String account_id = "";
@@ -118,40 +107,46 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             pickImageFromGallery();
+
                         }
                     }
 
                 }
             });
-            final String finalAccess_token = access_token;
+
+
             send_image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OkHttpClient client = new OkHttpClient().newBuilder()
-                            .build();
-                    MediaType mediaType = MediaType.parse("text/plain");
-                    RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                            .addFormDataPart("image", "/storage/emulated/0/AnimeX/AnimeX_1022141.jpg")
-                            .build();
-                    Request request = new Request.Builder()
-                            .url("https://api.imgur.com/3/image")
-                            .method("POST", body)
-                            .addHeader("Authorization", "Bearer " + finalAccess_token)
-                            .build();
-                    try {
-                        Response response = client.newCall(request).execute();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    new UploadImage().execute();
                 }
             });
-
         }
-
     }
 
-    public void UploadImage () throws IOException {
+    private class UploadImage extends AsyncTask<Void, Void, Void>{
 
+        @Override
+        protected Void doInBackground(Void... voids) {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("text/plain");
+            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("image", "content://com.android.providers.media.documents/document/image%3A253400")
+                    .build();
+            Request request = new Request.Builder()
+                    .url("https://api.imgur.com/3/image")
+                    .method("POST", body)
+                    .addHeader("Authorization", "Bearer " + access_token)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                Log.d("TAG", response.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     private void pickImageFromGallery(){
@@ -179,12 +174,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_CODE) {
             Image.setImageURI(data.getData());
+            Log.d("TAG", data.getData().toString());
+
         }
     }
 
 
 
-    public void login(View view) {
+     public void login(View view) {
         Uri login_Uri = Uri.parse("https://api.imgur.com/oauth2/authorize?client_id=" + clientId + "&response_type=" + "token");
         Intent connectIntent = new Intent(Intent.ACTION_VIEW, login_Uri);
 // Verify it resolves
@@ -196,7 +193,6 @@ public class LoginActivity extends AppCompatActivity {
         if (isIntentSafe) {
             startActivity(connectIntent);
             finish();
-
         }
     }
 }
