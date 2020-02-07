@@ -60,6 +60,9 @@
 
             </intent-filter>
         </activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".FavoriteActivity" />
     </application>
 
 </manifest>

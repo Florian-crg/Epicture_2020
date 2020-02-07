@@ -9,12 +9,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,11 +19,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -38,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE= 1;
     private ImageButton login_button;
-    private String clientId = "bb0c749c6403fd2";
+    private static String clientId = "bb0c749c6403fd2";
     private TextView test;
     private Button continue_button;
     private Button choose_image;
@@ -48,9 +42,11 @@ public class LoginActivity extends AppCompatActivity {
     private static String access_token;
 
 
+    private static final String TAG = "HttpHandler";
     private static final int PICK_IMAGE_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
-
+    public static String account_username;
+    private static OkHttpClient httpClient;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -68,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         String uri = getIntent().getDataString();
         access_token = "";
         String refresh_token = "";
-        String account_username = "";
+        account_username = "";
         String account_id = "";
         test.setText("Login");
         String n = "";
@@ -86,8 +82,7 @@ public class LoginActivity extends AppCompatActivity {
             account_username = argument4.split("=")[1];
             account_id = argument5.split("=")[1];
 
-            test.setText("Hi " + account_username + "\nYour id is : " + account_id + "\nYour ");
-
+            test.setText(account_username);
             continue_button.setText("Continue");
 
             continue_button.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private class UploadImage extends AsyncTask<Void, Void, Void>{
+    private class UploadImage extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -146,6 +141,21 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+    public static void Avatar() throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("https://api.imgur.com/3/account/"+account_username)
+                .method("GET", null)
+                .addHeader("Authorization", "Client-ID "+clientId)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">epicture</string>
     <string name="facebook_app_id">119657249371668</string>
     <string name="fb_login_protocol_scheme">fb119657249371668</string>
@@ -7,4 +7,8 @@
         <item>Newest</item>
         <item>Rising</item>
     </string-array>
+    <string name="id_not_found">ID not found</string>
+    <string name="name_not_found">Name not found</string>
+    <string name="favorite_text_view">Favorite page</string>
+    <string name="search_text_view">Search page</string>
 </resources>
