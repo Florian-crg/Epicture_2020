@@ -19,6 +19,7 @@ public class Loading extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }
         }, 1500);

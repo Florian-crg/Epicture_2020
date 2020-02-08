@@ -2,24 +2,19 @@ package com.example.epicture;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.io.IOException;
 import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -39,12 +34,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button send_image;
     private  String tag = null;
     private ImageView Image;
-    private static String access_token;
 
 
     private static final String TAG = "HttpHandler";
-    private static final int PICK_IMAGE_CODE = 1000;
-    private static final int PERMISSION_CODE = 1001;
+    public static String access_token;
     public static String account_username;
     private static OkHttpClient httpClient;
 
@@ -54,12 +47,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.login_button = findViewById(R.id.login_button);
-        this.choose_image = findViewById(R.id.choose_image);
-        this.send_image = findViewById(R.id.send_image);
+        ImageButton button = findViewById(R.id.login_button);
+        ObjectAnimator.ofFloat(button, "alpha", 1f).setDuration(3000).start();
         this.continue_button = findViewById(R.id.con_button);
         this.test = findViewById(R.id.tests);
-        this.Image = findViewById(R.id.image_taken);
 
         String uri = getIntent().getDataString();
         access_token = "";
@@ -67,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         account_username = "";
         String account_id = "";
         test.setText("Login");
-        String n = "";
 
         if (uri != null){
             String mainPart = uri.toString().split("#")[1];
@@ -75,12 +65,10 @@ public class LoginActivity extends AppCompatActivity {
             String argument0 = arguments[0];
             String argument3 = arguments[3];
             String argument4 = arguments[4];
-            String argument5 = arguments[5];
 
             access_token = argument0.split("=")[1];
             refresh_token = argument3.split("=")[1];
             account_username = argument4.split("=")[1];
-            account_id = argument5.split("=")[1];
 
             test.setText(account_username);
             continue_button.setText("Continue");
@@ -92,104 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(next_activity);
                 }
             });
-            choose_image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                            String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                            requestPermissions(permissions, PERMISSION_CODE);
-                        }
-                        else {
-                            pickImageFromGallery();
 
-                        }
-                    }
-
-                }
-            });
-
-
-            send_image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new UploadImage().execute();
-                }
-            });
-        }
-    }
-
-    private class UploadImage extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .build();
-            MediaType mediaType = MediaType.parse("text/plain");
-            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                    .addFormDataPart("image", "content://com.android.providers.media.documents/document/image%3A253400")
-                    .build();
-            Request request = new Request.Builder()
-                    .url("https://api.imgur.com/3/image")
-                    .method("POST", body)
-                    .addHeader("Authorization", "Bearer " + access_token)
-                    .build();
-            try {
-                Response response = client.newCall(request).execute();
-                Log.d("TAG", response.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
-    public static void Avatar() throws IOException {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/account/"+account_username)
-                .method("GET", null)
-                .addHeader("Authorization", "Client-ID "+clientId)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void pickImageFromGallery(){
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_CODE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    pickImageFromGallery();
-                }
-                else {
-                    Toast.makeText(this, "Permission denied..!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_CODE) {
-            Image.setImageURI(data.getData());
-            Log.d("TAG", data.getData().toString());
-
-        }
-    }
-
-
+      }
+   }
 
      public void login(View view) {
         Uri login_Uri = Uri.parse("https://api.imgur.com/oauth2/authorize?client_id=" + clientId + "&response_type=" + "token");
