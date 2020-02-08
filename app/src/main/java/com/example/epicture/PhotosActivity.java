@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -52,10 +53,9 @@ public class PhotosActivity extends AppCompatActivity {
     private static JSONArray mItems;
     private static String mAccessToken;
     private static String userID;
-    static Activity activity;
 
     // Shared variable
-    private static String selectedItem;
+    public static String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class PhotosActivity extends AppCompatActivity {
 //        HttpHandler.fetchData();
 //        build();
 
-        activity = this;
+        HttpHandler.activity = this;
 
         Spinner spinner=(Spinner)findViewById(R.id.spinner);
         String[] filters=getResources().getStringArray(R.array.filters);
@@ -146,6 +146,7 @@ public class PhotosActivity extends AppCompatActivity {
     }
 
     public void build () {
+        final List<Photo> photos = new ArrayList<Photo>();
         try {
             for(int i = 0; i < mItems.length(); i++) {
                 JSONObject item = mItems.getJSONObject(i);
@@ -156,12 +157,12 @@ public class PhotosActivity extends AppCompatActivity {
                     photo.id = item.getString("id");
                 }
                 photo.title = item.getString("title");
-                mPhotos.add(photo);
+                photos.add(photo);
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        render(mPhotos);
+                        render(photos);
                     }
                 });
             }
@@ -215,9 +216,8 @@ public class PhotosActivity extends AppCompatActivity {
         userID = UserID;
     }
 
-    public static void callBackPhoto( List<Photo> photos, JSONArray items)
+    public static void callBackPhoto(JSONArray items)
     {
-         mPhotos = photos;
          mItems = items;
     }
 

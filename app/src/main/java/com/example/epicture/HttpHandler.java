@@ -1,5 +1,6 @@
 package com.example.epicture;
 
+import android.app.Activity;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -14,6 +15,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.example.epicture.LoginActivity.account_username;
+
 
 public class HttpHandler {
     private static final String TAG = "HttpHandler";
@@ -21,21 +24,29 @@ public class HttpHandler {
     private static OkHttpClient httpClient;
     private static String mAccessToken;
 
+    public static Activity activity;
+
     // URL BUILDER VARIABLES
+    public static String base = "gallery/";
     public static String section = "hot/";
     public static String sort = "viral/";
-    public static String page;
-    public static String showV;
-    public static String mUrl;
+    public static String page = "0.json";
+    public static String showV = "";
+    public static String mUrl = "";
+
 
     public static void fetchData() {
+        final String currentAct = activity.toString();
         httpClient = new OkHttpClient.Builder().build();
-        PhotosActivity.Filters();
-        Log.d("TAG", "0  " + sort);
-        mUrl = "https://api.imgur.com/3/gallery/" + section + sort;
+        if (currentAct.contains("PhotosActivity")) {
+            PhotosActivity.Filters();
+        } else if (currentAct.contains("FavoriteActivity")) {
+            FavoriteActivity.Filters();
+        }
+        mUrl = "https://api.imgur.com/3/" + base + section + sort + page + showV;
         Log.d("TAG", "Sort: " + sort + ": URl is" + mUrl);
         Request request = new Request.Builder()
-                .url(mUrl + "0.json" + showV)
+                .url(mUrl)
                 .addHeader("Authorization", "Client-ID " + clientId)
                 .header("User-Agent", "epicture")
                 .build();
@@ -50,8 +61,12 @@ public class HttpHandler {
                 try {
                     JSONObject data = new JSONObject(response.body().string());
                     JSONArray items = data.getJSONArray("data");
-                    final List<Photo> photos = new ArrayList<Photo>();
-                    PhotosActivity.callBackPhoto(photos, items);
+                    if (currentAct.contains("PhotosActivity")) {
+                        PhotosActivity.callBackPhoto(items);
+                    } else if (currentAct.contains("FavoriteActivity")) {
+                        FavoriteActivity.callBackPhoto(items);
+                    }
+
                 } catch (Exception e) {
                     Log.e("JSONerr", "Something went wrong.");
                 }
