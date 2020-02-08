@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/header_bg">
 
 
     <ImageView
@@ -44,33 +45,5 @@
         android:text="Login to continue"
         android:id="@+id/con_button" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:id="@+id/image_taken"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Choose Image"
-        android:id="@+id/choose_image"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Send Image"
-        android:id="@+id/send_image"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Open browser"
-        android:id="@+id/open_browser"/>
 
 </LinearLayout>
