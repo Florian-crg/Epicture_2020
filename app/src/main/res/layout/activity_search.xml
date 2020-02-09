@@ -114,7 +114,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
                 app:backgroundTint="#3700B3"
-                app:iconTint="@color/colorAccent"/>
+                app:iconTint="#ED04EEC2"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="50dp"

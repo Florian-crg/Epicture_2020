@@ -36,9 +36,11 @@ public class LoginActivity extends AppCompatActivity {
             String argument4 = arguments[4];
             access_token = argument0.split("=")[1];
             account_username = argument4.split("=")[1];
-                    Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
-                    startActivity(next_activity);
-      }
+            Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+            startActivity(next_activity);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        }
    }
 
      public void login(View view) {
