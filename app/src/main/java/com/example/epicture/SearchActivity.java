@@ -2,16 +2,10 @@ package com.example.epicture;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.SearchView;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -21,46 +15,19 @@ public class SearchActivity extends AppCompatActivity {
     private MaterialButton search_btn;
     private MaterialButton profil_btn;
     private SearchView mSearchView;
-    private TextView mTextView;
+    private static String query;
 
-    private TextWatcher text = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_search);
-        mSearchView = (SearchView) findViewById(R.id.search);
-        mTextView = (TextView) findViewById(R.id.test);
-        Log.d("TAG", "ok");
-        text = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d("TAG", "ok");
-                // FIlters();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d("TAG", mSearchView.getQuery().toString());
-                mTextView.setText(mSearchView.getQuery().toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Log.d("TAG", "ok");
-
-            }
-        };
-
+        final HttpHandler httpHandler = new HttpHandler(SearchActivity.this, this);
         this.home_btn = findViewById(R.id.home_button);
         this.favorites_btn = findViewById(R.id.favorites_button);
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,8 +71,32 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(next_activity);
             }
         });
-//        mSearchView.OnQueryTextListener(text);
+
+        mSearchView = (SearchView) findViewById(R.id.search);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                query = mSearchView.getQuery().toString();
+                Filters();
+                httpHandler.fetchData();
+                return false;
+            }
+        });
     }
 
-
+    private static void Filters() {
+        Log.d("TAG","filter search");
+        HttpHandler.base = "gallery/";
+        HttpHandler.section = "search/";
+        HttpHandler.sort = "";
+        HttpHandler.page = "";
+        HttpHandler.showV = "";
+        HttpHandler.query= "?q=" + query;
+    }
 }

@@ -1,37 +1,18 @@
 package com.example.epicture;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-
 
 public class PhotosActivity extends AppCompatActivity {
 
@@ -62,23 +43,14 @@ public class PhotosActivity extends AppCompatActivity {
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-//        HttpHandler.fetchData();
-//        build();
-//        activity = this;
-
-//        HttpHandler.activity = this;
         final HttpHandler httpHandler = new HttpHandler(PhotosActivity.this, this);
-
         Spinner spinner=(Spinner)findViewById(R.id.spinner);
         String[] filters=getResources().getStringArray(R.array.filters);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.spinner,R.id.text, filters);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = parent.getItemAtPosition(position).toString();
                 Filters();
                 httpHandler.fetchData();
@@ -134,10 +106,11 @@ public class PhotosActivity extends AppCompatActivity {
         });
     }
 
-    public static void Filters() {
+    private static void Filters() {
         HttpHandler.base = "gallery/";
         HttpHandler.page = "0.json";
         HttpHandler.showV = "?showViral=false";
+        HttpHandler.query = "";
         if(selectedItem != null) {
             if (selectedItem.equals("Most Viral")) {
                 HttpHandler.section = "hot/";

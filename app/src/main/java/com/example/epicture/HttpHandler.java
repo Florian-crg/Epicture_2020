@@ -43,12 +43,14 @@ public class HttpHandler {
     public static String sort = "viral/";
     public static String page = "0.json";
     public static String showV = "";
+    public static String query = "";
     public static String mUrl = "";
 
     public void fetchData() {
         httpClient = new OkHttpClient.Builder().build();
-        mUrl = "https://api.imgur.com/3/" + base + section + sort + page + showV;
-        Log.d("TAG", "Sort: " + sort + ": URl is: " + mUrl);
+        mUrl = "https://api.imgur.com/3/" + base + section + sort + page + showV + query;
+        Log.d("TAG", ": URl is: " + mUrl);
+
         Request request = new Request.Builder()
                 .url(mUrl)
                 .addHeader("Authorization", "Client-ID " + clientId)
@@ -57,7 +59,7 @@ public class HttpHandler {
         httpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e(TAG, "An error has occurred " + e);
+                Log.e("TAG", "An error has occurred " + e);
             }
 
             @Override
@@ -86,10 +88,10 @@ public class HttpHandler {
                             });
                         }
                     } catch (Exception e) {
-                        Log.e("JSONerr" , "Something went wrong.");
+                        Log.e("TAG" , "Something went wrong.");
                     }
                 } catch (Exception e) {
-                    Log.e("JSONerr", "Something went wrong.");
+                    Log.e("TAG", "Something went wrong.");
                 }
             }
         });
@@ -104,6 +106,7 @@ public class HttpHandler {
     }
 
     private void render(final List<Photo> photos) {
+
         final RecyclerView rv = (RecyclerView) activity.findViewById(R.id.rv_of_photos);
         rv.setLayoutManager(new LinearLayoutManager(activity));
         final RecyclerView.Adapter<PhotoVH> adapter = new RecyclerView.Adapter<PhotoVH>() {
