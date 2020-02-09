@@ -21,14 +21,15 @@
         app:srcCompat="@drawable/logo_epi" />
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/login_button"
-        android:background="?android:selectableItemBackground"
-        android:onClick="login"
+        android:id="@+id/login_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:id="@+id/login_button"/>
+        android:background="?android:selectableItemBackground"
+        android:onClick="login"
+        android:src="@drawable/login_button" />
 
     <TextView
         android:layout_width="wrap_content"
