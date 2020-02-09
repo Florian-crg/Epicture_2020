@@ -7,7 +7,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.Display;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -25,7 +24,7 @@ public class Loading extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int height = size.y;
-        int middle_height = -(height/2) + 130;
+        int middle_height = -(height/2) + 330;
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -38,7 +37,7 @@ public class Loading extends AppCompatActivity {
         }, 1500);
         Animation moveToTop;
         moveToTop = new TranslateAnimation(0, 0, 0, middle_height);
-        moveToTop.setDuration(2300);
+        moveToTop.setDuration(2000);
         moveToTop.setFillAfter(true);
         this.logo = findViewById(R.id.logo_epicture);
         logo.startAnimation(moveToTop);

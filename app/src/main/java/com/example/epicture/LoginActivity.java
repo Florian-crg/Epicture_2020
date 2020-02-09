@@ -30,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private MaterialButton login_button;
     private static String clientId = "bb0c749c6403fd2";
-    private Button continue_button;
-    private TextView mTextView;
 
 
     private static final String TAG = "HttpHandler";
@@ -42,39 +40,21 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.continue_button = findViewById(R.id.continue_button);
         this.login_button = findViewById(R.id.login_button);
-        this.mTextView = findViewById(R.id.text_login);
-
-        continue_button.setVisibility(View.GONE);
-
 
         String uri = getIntent().getDataString();
         access_token = "";
-        String refresh_token = "";
         account_username = "";
-        String account_id = "";
 
         if (uri != null){
-            continue_button.setVisibility(View.VISIBLE);
-            login_button.setText("CONTINUE");
             String mainPart = uri.toString().split("#")[1];
             String[] arguments = mainPart.split("&");
             String argument0 = arguments[0];
-            String argument3 = arguments[3];
             String argument4 = arguments[4];
-
             access_token = argument0.split("=")[1];
-            refresh_token = argument3.split("=")[1];
             account_username = argument4.split("=")[1];
-            mTextView.setText("You are logged as " + account_username);
-            continue_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+            Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
                     startActivity(next_activity);
-                }
-            });
 
       }
    }

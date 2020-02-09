@@ -28,34 +28,10 @@
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         app:cornerRadius="70dp"/>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/continue_button"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:text="CONTINUE"
-        app:strokeColor="@color/colorPrimary"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        app:cornerRadius="70dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="7dp"
-        android:text="Login to continue"
-        android:id="@+id/text_login"/>
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/login_button"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        -->
-<!--        android:background="?android:selectableItemBackground"-->
-<!--        android:src="@drawable/login_button" />-->
+
+
 
 
 </RelativeLayout>
