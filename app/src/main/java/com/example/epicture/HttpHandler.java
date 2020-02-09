@@ -1,7 +1,18 @@
 package com.example.epicture;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,12 +30,20 @@ import static com.example.epicture.LoginActivity.account_username;
 
 
 public class HttpHandler {
+    Activity activity;
+    Context context;
+
+    public HttpHandler(Context context, Activity activity) {
+        this.context=context;
+        this.activity=activity;
+    }
+
     private static final String TAG = "HttpHandler";
     private static String clientId = "bb0c749c6403fd2";
     private static OkHttpClient httpClient;
+
     private static String mAccessToken;
 
-    public static Activity activity;
 
     // URL BUILDER VARIABLES
     public static String base = "gallery/";
@@ -35,16 +54,15 @@ public class HttpHandler {
     public static String mUrl = "";
 
 
-    public static void fetchData() {
-        final String currentAct = activity.toString();
+    public void fetchData() {
         httpClient = new OkHttpClient.Builder().build();
-        if (currentAct.contains("PhotosActivity")) {
-            PhotosActivity.Filters();
-        } else if (currentAct.contains("FavoriteActivity")) {
-            FavoriteActivity.Filters();
-        }
+//        if (currentAct.contains("PhotosActivity")) {
+//            PhotosActivity.Filters();
+//        } else if (currentAct.contains("FavoriteActivity")) {
+//            FavoriteActivity.Filters();
+//        }
         mUrl = "https://api.imgur.com/3/" + base + section + sort + page + showV;
-        Log.d("TAG", "Sort: " + sort + ": URl is" + mUrl);
+        Log.d("TAG", "Sort: " + sort + ": URl is: " + mUrl);
         Request request = new Request.Builder()
                 .url(mUrl)
                 .addHeader("Authorization", "Client-ID " + clientId)
@@ -61,10 +79,34 @@ public class HttpHandler {
                 try {
                     JSONObject data = new JSONObject(response.body().string());
                     JSONArray items = data.getJSONArray("data");
-                    if (currentAct.contains("PhotosActivity")) {
-                        PhotosActivity.callBackPhoto(items);
-                    } else if (currentAct.contains("FavoriteActivity")) {
-                        FavoriteActivity.callBackPhoto(items);
+//                    if (currentAct.contains("PhotosActivity")) {
+//                        PhotosActivity.callBackPhoto(items);
+//                    } else if (currentAct.contains("FavoriteActivity")) {
+//                        FavoriteActivity.callBackPhoto(items);
+//                    }
+                    final List<Photo> photos = new ArrayList<Photo>();
+                    try {
+                        for(int i = 0; i < items.length(); i++) {
+                            JSONObject item = items.getJSONObject(i);
+                            Photo photo = new Photo();
+                            if(item.getBoolean("is_album")) {
+                                photo.id = item.getString("cover");
+                            } else {
+                                photo.id = item.getString("id");
+                            }
+                            photo.title = item.getString("title");
+                            photos.add(photo);
+
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    render(photos);
+                                }
+                            });
+                        }
+
+                    } catch (Exception e) {
+                        Log.e("JSONerr" , "Something went wrong.");
                     }
 
                 } catch (Exception e) {
@@ -74,7 +116,40 @@ public class HttpHandler {
         });
     }
 
-    public static void getLoginData(String accessToken) {
-        mAccessToken = accessToken;
+    private static class PhotoVH extends RecyclerView.ViewHolder {
+        ImageView photo;
+        TextView title;
+
+        public PhotoVH(View itemView) {
+            super(itemView);
+        }
+    }
+
+    private void render(final List<Photo> photos) {
+        final RecyclerView rv = (RecyclerView) activity.findViewById(R.id.rv_of_photos);
+        rv.setLayoutManager(new LinearLayoutManager(activity));
+
+        final RecyclerView.Adapter<PhotoVH> adapter = new RecyclerView.Adapter<PhotoVH>() {
+            @Override
+            public PhotoVH onCreateViewHolder(ViewGroup parent, int viewType) {
+                PhotoVH vh = new PhotoVH(activity.getLayoutInflater().inflate(R.layout.item, null));
+                vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
+                vh.title = (TextView) vh.itemView.findViewById(R.id.title);
+                return vh;
+            }
+
+            @Override
+            public void onBindViewHolder(PhotoVH holder, int position) {
+                Picasso.with(activity).load("https://i.imgur.com/" +
+                        photos.get(position).id + ".jpg").into(holder.photo);
+                holder.title.setText(photos.get(position).title);
+            }
+
+            @Override
+            public int getItemCount() {
+                return photos.size();
+            }
+        };
+        rv.setAdapter(adapter);
     }
 }

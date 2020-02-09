@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,13 +42,11 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-        HttpHandler.activity = this;
-        HttpHandler.fetchData();
-        build();
         this.home_btn = findViewById(R.id.home_button);
         this.favorites_btn = findViewById(R.id.favorites_button);
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
+        HttpHandler httpHandler = new HttpHandler(FavoriteActivity.this, this);
 
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +81,8 @@ public class FavoriteActivity extends AppCompatActivity {
                 startActivity(next_activity);
             }
         });
+        Filters();
+        httpHandler.fetchData();
     }
 
 
