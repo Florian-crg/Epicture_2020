@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         account_username = "";
 
         if (uri != null){
-            login_button.setText("CONTINUE");
             String mainPart = uri.toString().split("#")[1];
             String[] arguments = mainPart.split("&");
             String argument0 = arguments[0];
