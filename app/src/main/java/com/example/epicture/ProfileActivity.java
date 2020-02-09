@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -116,7 +115,7 @@ public class ProfileActivity  extends AppCompatActivity {
         favorites_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), FavoriteActivity.class);
                 finish();
 
                 startActivity(next_activity);
@@ -125,7 +124,7 @@ public class ProfileActivity  extends AppCompatActivity {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), SearchActivity.class);
                 finish();
                 startActivity(next_activity);
             }

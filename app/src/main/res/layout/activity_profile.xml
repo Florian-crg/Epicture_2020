@@ -16,7 +16,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        app:srcCompat="@drawable/logo_epi" />
+        app:srcCompat="@drawable/new_logo" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary">
+            android:background="#D7E8EF">
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

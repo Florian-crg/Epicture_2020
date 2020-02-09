@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.button.MaterialButton;
+
 import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -25,9 +28,10 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private ImageButton login_button;
+    private MaterialButton login_button;
     private static String clientId = "bb0c749c6403fd2";
     private Button continue_button;
+    private TextView mTextView;
 
 
     private static final String TAG = "HttpHandler";
@@ -38,7 +42,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.continue_button = findViewById(R.id.con_button);
+//        this.continue_button = findViewById(R.id.continue_button);
+        this.login_button = findViewById(R.id.login_button);
+//        this.mTextView = findViewById(R.id.text_login);
+
+        continue_button.setVisibility(View.GONE);
+
 
         String uri = getIntent().getDataString();
         access_token = "";
@@ -47,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         String account_id = "";
 
         if (uri != null){
+            continue_button.setVisibility(View.VISIBLE);
+            login_button.setText("CONTINUE");
             String mainPart = uri.toString().split("#")[1];
             String[] arguments = mainPart.split("&");
             String argument0 = arguments[0];
@@ -56,8 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             access_token = argument0.split("=")[1];
             refresh_token = argument3.split("=")[1];
             account_username = argument4.split("=")[1];
-            continue_button.setText("Continue");
-
+            mTextView.setText("You are logged as " + account_username);
             continue_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -70,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
    }
 
      public void login(View view) {
-        Uri login_Uri = Uri.parse("https://api.imgur.com/oauth2/authorize?client_id=" + clientId + "&response_type=" + "token");
+
+         Uri login_Uri = Uri.parse("https://api.imgur.com/oauth2/authorize?client_id=" + clientId + "&response_type=" + "token");
         Intent connectIntent = new Intent(Intent.ACTION_VIEW, login_Uri);
 // Verify it resolves
         PackageManager packageManager = getPackageManager();

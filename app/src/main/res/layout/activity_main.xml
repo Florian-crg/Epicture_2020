@@ -24,7 +24,7 @@
         android:gravity="center|bottom"
         android:paddingBottom="50dp">
         <Button
-            android:id="@+id/con_button"
+            android:id="@+id/login_button"
             android:layout_width="140dp"
             android:layout_height="45dp"
             android:padding="10dp"
