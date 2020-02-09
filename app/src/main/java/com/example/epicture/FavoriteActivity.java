@@ -70,11 +70,12 @@ public class FavoriteActivity extends AppCompatActivity {
         httpHandler.fetchData();
     }
 
-    public static void Filters() {
+    private static void Filters() {
         HttpHandler.base = "account/";
         HttpHandler.section = LoginActivity.account_username;
         HttpHandler.sort = "/gallery_favorites";
         HttpHandler.page = "";
         HttpHandler.showV = "";
+        HttpHandler.query = "";
     }
 }
