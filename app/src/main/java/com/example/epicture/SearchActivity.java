@@ -35,7 +35,6 @@ public class SearchActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.test);
         Log.d("TAG", "ok");
         text = new TextWatcher() {
-
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d("TAG", "ok");
