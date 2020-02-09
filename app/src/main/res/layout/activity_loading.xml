@@ -3,16 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/header_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#D8E9F0"
     android:orientation="vertical"
     android:layout_gravity="center">
 
     <ImageView
         android:id="@+id/logo_epicture"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:src="@drawable/logo_epi"
-        android:layout_centerInParent="true"/>
+        android:layout_width="256dp"
+        android:layout_height="302dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/new_logo" />
 
 
 

@@ -11,13 +11,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#F2F2F2"
+        android:background="#D7E8EF"
         tools:context="com.example.epicture.PhotosActivity" >
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="80dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/logo_epi"
+            app:srcCompat="@drawable/new_logo"
             android:layout_centerVertical="true"/>
         <Spinner
             android:id="@+id/spinner"
@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary">
+            android:background="#D7E8EF">
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
