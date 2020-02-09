@@ -10,12 +10,15 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
@@ -26,8 +29,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
 import static com.example.epicture.LoginActivity.account_username;
 import static com.example.epicture.LoginActivity.access_token;
+
 
 public class ProfileActivity  extends AppCompatActivity {
 
@@ -39,13 +44,12 @@ public class ProfileActivity  extends AppCompatActivity {
     private ImageView Image;
     private Button choose_image;
     private Button send_image;
+    private ProgressBar loading;
     private static final String clientId = "bb0c749c6403fd2";
     private static final int PICK_IMAGE_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
     public static String filePath = "";
     public static File file;
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -61,6 +65,10 @@ public class ProfileActivity  extends AppCompatActivity {
         this.Image = findViewById(R.id.image_taken);
         this.choose_image = findViewById(R.id.choose_image);
         this.send_image = findViewById(R.id.send_image);
+        this.loading = findViewById(R.id.loading);
+
+        loading.setVisibility(View.GONE);
+
 
         choose_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,8 +89,19 @@ public class ProfileActivity  extends AppCompatActivity {
         send_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loading.setVisibility(View.VISIBLE);
+                choose_image.setVisibility(View.GONE);
+                send_image.setVisibility(View.GONE);
                 new UploadImage().execute();
-
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loading.setVisibility(View.GONE);
+                        choose_image.setVisibility(View.VISIBLE);
+                        send_image.setVisibility(View.VISIBLE);
+                        Toast.makeText(getApplicationContext(),"Sent :)",Toast.LENGTH_SHORT).show();
+                    }
+                }, 2000);
             }
         });
 
@@ -97,15 +116,16 @@ public class ProfileActivity  extends AppCompatActivity {
         favorites_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), FavoriteActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
                 finish();
+
                 startActivity(next_activity);
             }
         });
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), SearchActivity.class);
+                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
                 finish();
                 startActivity(next_activity);
             }
@@ -129,7 +149,6 @@ public class ProfileActivity  extends AppCompatActivity {
             final MediaType mediaType = MediaType.parse("image/jpeg");
             Log.d("TAG ", filePath);
 
-
             RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("image", file.getName(), RequestBody.create(mediaType,file))
                     .build();
@@ -145,6 +164,22 @@ public class ProfileActivity  extends AppCompatActivity {
                 e.printStackTrace();
             }
             return null;
+        }
+    }
+
+
+    public static void Avatar() throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        Request request = new Request.Builder()
+                .url("https://api.imgur.com/3/account/" + account_username)
+                .method("GET", null)
+                .addHeader("Authorization", "Client-ID " + clientId)
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -174,6 +209,7 @@ public class ProfileActivity  extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_CODE && resultCode == RESULT_OK && null != data) {
             Uri uri = data.getData();
+            Image.setImageURI(uri);
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);
             cursor.moveToFirst();
             String document_id = cursor.getString(0);

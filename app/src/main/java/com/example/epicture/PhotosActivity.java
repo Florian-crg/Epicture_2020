@@ -2,15 +2,9 @@ package com.example.epicture;
 
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -40,7 +34,6 @@ import okhttp3.OkHttpClient;
 public class PhotosActivity extends AppCompatActivity {
 
     // Local variable
-    private OkHttpClient httpClient;
     private ImageButton home_btn;
     private ImageButton favorites_btn;
     private ImageButton search_btn;
@@ -69,18 +62,7 @@ public class PhotosActivity extends AppCompatActivity {
         this.profil_btn = findViewById(R.id.profil_button);
 //        HttpHandler.fetchData();
 //        build();
-
         activity = this;
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-
         Spinner spinner=(Spinner)findViewById(R.id.spinner);
         String[] filters=getResources().getStringArray(R.array.filters);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.spinner,R.id.text, filters);

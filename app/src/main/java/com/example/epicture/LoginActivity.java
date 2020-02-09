@@ -25,39 +25,26 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final int REQUEST_CODE= 1;
     private ImageButton login_button;
     private static String clientId = "bb0c749c6403fd2";
-    private TextView test;
     private Button continue_button;
-    private Button choose_image;
-    private Button send_image;
-    private  String tag = null;
-    private ImageView Image;
 
 
     private static final String TAG = "HttpHandler";
     public static String access_token;
     public static String account_username;
-    private static OkHttpClient httpClient;
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ImageButton button = findViewById(R.id.login_button);
-        ObjectAnimator.ofFloat(button, "alpha", 1f).setDuration(3000).start();
         this.continue_button = findViewById(R.id.con_button);
-        this.test = findViewById(R.id.tests);
 
         String uri = getIntent().getDataString();
         access_token = "";
         String refresh_token = "";
         account_username = "";
         String account_id = "";
-        test.setText("Login");
 
         if (uri != null){
             String mainPart = uri.toString().split("#")[1];
@@ -69,8 +56,6 @@ public class LoginActivity extends AppCompatActivity {
             access_token = argument0.split("=")[1];
             refresh_token = argument3.split("=")[1];
             account_username = argument4.split("=")[1];
-
-            test.setText(account_username);
             continue_button.setText("Continue");
 
             continue_button.setOnClickListener(new View.OnClickListener() {
