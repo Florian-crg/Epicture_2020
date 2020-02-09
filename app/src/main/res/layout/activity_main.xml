@@ -16,36 +16,23 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/logo_epi" />
+        app:srcCompat="@drawable/logo_epi_login" />
 
-    <Button
-        android:id="@+id/con_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="82dp"
-        android:layout_marginEnd="163dp"
-        android:text="continue"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/login_button"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="7dp"
-        android:text="Login to continue" />
-
-    <ImageButton
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:background="?android:selectableItemBackground"
-        android:onClick="login"
-        android:src="@drawable/login_button" />
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|bottom"
+        android:paddingBottom="50dp">
+        <Button
+            android:id="@+id/con_button"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/login_b_round"
+            android:text="LOGIN"
+            android:autoSizeTextType="uniform"
+            android:drawableLeft="@drawable/login"
+            android:onClick="login"/>
+    </LinearLayout>
 </RelativeLayout>
