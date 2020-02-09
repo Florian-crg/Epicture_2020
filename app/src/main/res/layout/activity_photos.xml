@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         tools:context="com.example.epicture.PhotosActivity" >
         <TextView
             android:id="@+id/Home_text"
@@ -25,8 +25,8 @@
             android:textColorHighlight="#FFFFFF"/>
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="130dp"
-            android:layout_height="20dp"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
 
@@ -60,7 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_anchor="@id/bottom_app_bar"
-                app:srcCompat="@drawable/background"/>
+                app:srcCompat="@drawable/background"
+                app:backgroundTint="@color/colorPrimary"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <RelativeLayout
@@ -79,8 +80,8 @@
                 app:cornerRadius="20dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                app:backgroundTint="#3700B3"
-                app:iconTint="#ED04EEC2"/>
+                app:backgroundTint="#FFFFFF"
+                app:iconTint="@color/colorPrimaryDark"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="50dp"
@@ -94,7 +95,8 @@
                 app:cornerRadius="20dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                app:backgroundTint="#3700B3"
+                app:backgroundTint="#FFFFFF"
+                app:iconTint="@color/colorPrimary"
                 />
 
             <ImageButton
@@ -103,7 +105,7 @@
                 android:id="@+id/hide_button"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
-                />
+                app:iconTint="@color/colorPrimary"/>
             <com.google.android.material.button.MaterialButton
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
@@ -116,13 +118,15 @@
                 app:cornerRadius="20dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp"
-                app:backgroundTint="#3700B3"/>
+                app:backgroundTint="#FFFFFF"
+                app:iconTint="@color/colorPrimary"/>
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/ic_person_black_24dp"
                 app:iconGravity="start"
+                android:shadowColor="#FFFFFF"
                 android:id="@+id/profil_button"
                 android:layout_toEndOf="@+id/search_button"
                 android:layout_alignParentBottom="true"
@@ -130,7 +134,8 @@
                 app:cornerRadius="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="60dp"
-                app:backgroundTint="#3700B3"/>
+                app:backgroundTint="#FFFFFF"
+                app:iconTint="@color/colorPrimary"/>
 
         </RelativeLayout>
     </RelativeLayout>

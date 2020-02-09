@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,6 +41,7 @@ import static com.example.epicture.LoginActivity.access_token;
 public class Upload_Images  extends AppCompatActivity {
 
     private TextView textUpload;
+    private TextInputLayout title;
     private ImageButton back;
     private ImageView Image;
     private MaterialButton send_image;
@@ -59,8 +61,11 @@ public class Upload_Images  extends AppCompatActivity {
         this.Image = findViewById(R.id.image_taken);
         this.send_image = findViewById(R.id.send_image);
         this.loading = findViewById(R.id.loading);
+        this.title = findViewById(R.id.textTitle);
         loading.setVisibility(View.GONE);
         send_image.setVisibility(View.GONE);
+        title.setVisibility(View.GONE);
+        send_image.setEnabled(false);
         this.back = findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +74,12 @@ public class Upload_Images  extends AppCompatActivity {
                 finish();
             }
         });
-
+        title.addOnEditTextAttachedListener(new TextInputLayout.OnEditTextAttachedListener() {
+            @Override
+            public void onEditTextAttached(TextInputLayout textInputLayout) {
+                send_image.setEnabled(textInputLayout.toString().length() != 0);
+            }
+        });
 
         Image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,6 +167,7 @@ public class Upload_Images  extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_CODE && resultCode == RESULT_OK && null != data) {
             send_image.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
             Uri uri = data.getData();
             Image.setImageURI(uri);
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);

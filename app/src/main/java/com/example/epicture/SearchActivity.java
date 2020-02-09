@@ -76,15 +76,14 @@ public class SearchActivity extends AppCompatActivity {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                Filters();
+                httpHandler.fetchData();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 query = mSearchView.getQuery().toString();
-                Filters();
-                httpHandler.fetchData();
                 return false;
             }
         });
