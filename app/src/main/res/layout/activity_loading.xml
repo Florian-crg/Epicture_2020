@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#D8E9F0"
+    android:background="@drawable/header_bg"
     android:orientation="vertical"
     android:layout_gravity="center">
 
@@ -14,8 +14,7 @@
         android:layout_height="302dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@drawable/new_logo" />
-
+        app:srcCompat="@drawable/logo_epi_login" />
 
 
 </RelativeLayout>

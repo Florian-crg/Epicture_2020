@@ -37,7 +37,7 @@ public class Loading extends AppCompatActivity {
         }, 1500);
         Animation moveToTop;
         moveToTop = new TranslateAnimation(0, 0, 0, middle_height);
-        moveToTop.setDuration(2000);
+        moveToTop.setDuration(2300);
         moveToTop.setFillAfter(true);
         this.logo = findViewById(R.id.logo_epicture);
         logo.startAnimation(moveToTop);
