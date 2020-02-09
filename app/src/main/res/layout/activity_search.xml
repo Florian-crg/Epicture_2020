@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorPrimaryDark"
-        tools:context="com.example.epicture.PhotosActivity" >
+        tools:context="com.example.epicture.SearchActivity" >
         <TextView
             android:id="@+id/Home_text"
             android:layout_width="wrap_content"
@@ -32,14 +32,14 @@
         android:iconifiedByDefault="false">
         <requestFocus />
     </SearchView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/test">
-    </TextView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_of_photos" />
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
