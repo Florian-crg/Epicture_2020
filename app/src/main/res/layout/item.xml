@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white">
-    <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:id="@+id/photo"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/colorPrimary"/>
+
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/title"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13.8dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="8dp"
+            android:textAlignment="center"
             android:textAppearance="@android:style/TextAppearance.Large"
-            android:layout_margin="8dp"
-            android:textAlignment="center"/>
-    </LinearLayout>
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:layout_width="wrap_content"
+            android:background="@drawable/login_b_round"
+            android:textColor="#FFFFFF"
+            android:shadowRadius="@android:integer/config_longAnimTime"/>
+    </RelativeLayout>
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:id="@+id/make_fav_btn"
-        android:src="@drawable/ic_favorite_black_24dp"/>
+        app:icon="@drawable/ic_favorite_black_24dp"
+        android:id="@+id/fav_button"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        app:cornerRadius="8dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        app:iconTint="#FFFFFF" />
 </androidx.cardview.widget.CardView>

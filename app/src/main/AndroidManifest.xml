@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/icon_epicture"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="Upload_Images" />
+        <activity android:name=".Upload_Images" />
         <activity
             android:name=".Loading"
             android:screenOrientation="portrait">

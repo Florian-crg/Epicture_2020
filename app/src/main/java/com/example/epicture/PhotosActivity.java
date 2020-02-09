@@ -21,6 +21,7 @@ public class PhotosActivity extends AppCompatActivity {
     private MaterialButton favorites_btn;
     private MaterialButton search_btn;
     private MaterialButton profil_btn;
+
     // Constante variable
     private static final String TAG = "PhotoActivity";
     private static final String clientId = "bb0c749c6403fd2";
@@ -42,6 +43,7 @@ public class PhotosActivity extends AppCompatActivity {
         this.favorites_btn = findViewById(R.id.favorites_button);
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final HttpHandler httpHandler = new HttpHandler(PhotosActivity.this, this);
         Spinner spinner=(Spinner)findViewById(R.id.spinner);
