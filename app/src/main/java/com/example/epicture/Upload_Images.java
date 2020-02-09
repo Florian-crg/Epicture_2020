@@ -60,6 +60,7 @@ public class Upload_Images  extends AppCompatActivity {
         this.send_image = findViewById(R.id.send_image);
         this.loading = findViewById(R.id.loading);
         loading.setVisibility(View.GONE);
+        send_image.setVisibility(View.GONE);
         this.back = findViewById(R.id.back);
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +82,6 @@ public class Upload_Images  extends AppCompatActivity {
                         pickImageFromGallery();
                     }
                 }
-
             }
         });
 
@@ -131,22 +131,6 @@ public class Upload_Images  extends AppCompatActivity {
         }
     }
 
-
-    public static void Avatar() throws IOException {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/account/" + account_username)
-                .method("GET", null)
-                .addHeader("Authorization", "Client-ID " + clientId)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void pickImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
@@ -172,6 +156,7 @@ public class Upload_Images  extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_CODE && resultCode == RESULT_OK && null != data) {
+            send_image.setVisibility(View.VISIBLE);
             Uri uri = data.getData();
             Image.setImageURI(uri);
             Cursor cursor = getContentResolver().query(uri, null, null, null, null);

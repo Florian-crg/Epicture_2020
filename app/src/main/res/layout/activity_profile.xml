@@ -24,6 +24,13 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:id="@+id/image_profile"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,36 +40,30 @@
         android:layout_gravity="center"
         android:id="@+id/name_profile" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:id="@+id/image_taken"/>
-
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Your posts"
+        android:textSize="30sp"
         android:layout_gravity="center"
-        android:text="Choose Image"
-        android:id="@+id/choose_image"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Send Image"
-        android:id="@+id/send_image"/>
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/loading"></ProgressBar>
+        android:id="@+id/text_posts" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/profile_photos">
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_of_photos">
+        </androidx.recyclerview.widget.RecyclerView>
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
