@@ -150,7 +150,8 @@
                 app:cornerRadius="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="60dp"
-                app:backgroundTint="#3700B3"/>
+                app:backgroundTint="#3700B3"
+                app:iconTint="@color/colorAccent"/>
 
         </RelativeLayout>
     </RelativeLayout>

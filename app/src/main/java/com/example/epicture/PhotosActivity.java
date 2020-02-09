@@ -90,33 +90,36 @@ public class PhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
-                finish();
                 startActivity(next_activity);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
         favorites_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), FavoriteActivity.class);
-                finish();
-
                 startActivity(next_activity);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), SearchActivity.class);
-                finish();
                 startActivity(next_activity);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
         profil_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent next_activity = new Intent(getApplicationContext(), ProfileActivity.class);
-                finish();
                 startActivity(next_activity);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
     }
