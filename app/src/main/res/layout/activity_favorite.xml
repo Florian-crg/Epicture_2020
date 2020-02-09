@@ -23,6 +23,7 @@
 
     </RelativeLayout>
 
+
     <RelativeLayout
 
         android:layout_width="match_parent"
@@ -45,6 +46,11 @@
             android:focusable="true" />
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_of_photos">
+        </androidx.recyclerview.widget.RecyclerView>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"

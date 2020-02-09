@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -19,13 +20,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -47,10 +47,9 @@ public class PhotosActivity extends AppCompatActivity {
     private static JSONArray mItems;
     private static String mAccessToken;
     private static String userID;
-    static Activity activity;
 
     // Shared variable
-    private static String selectedItem;
+    public static String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,21 +61,23 @@ public class PhotosActivity extends AppCompatActivity {
         this.profil_btn = findViewById(R.id.profil_button);
 //        HttpHandler.fetchData();
 //        build();
-        activity = this;
+//        activity = this;
+
+//        HttpHandler.activity = this;
+        final HttpHandler httpHandler = new HttpHandler(PhotosActivity.this, this);
+
         Spinner spinner=(Spinner)findViewById(R.id.spinner);
         String[] filters=getResources().getStringArray(R.array.filters);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.spinner,R.id.text, filters);
         spinner.setAdapter(adapter);
-
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 selectedItem = parent.getItemAtPosition(position).toString();
-                HttpHandler.fetchData();
-                build();
+                Filters();
+                httpHandler.fetchData();
             }
             public void onNothingSelected(AdapterView<?> parent)
             {
@@ -120,101 +121,26 @@ public class PhotosActivity extends AppCompatActivity {
     }
 
     public static void Filters() {
+        HttpHandler.base = "gallery/";
+        HttpHandler.page = "0.json";
+        HttpHandler.showV = "?showViral=false";
         if(selectedItem != null) {
             if (selectedItem.equals("Most Viral")) {
                 HttpHandler.section = "hot/";
                 HttpHandler.sort = "viral/";
+                HttpHandler.showV = "?showViral=true";
             } else if (selectedItem.equals("Newest")) {
                 HttpHandler.section = "top/";
                 HttpHandler.sort = "time/";
             } else if (selectedItem.equals("Rising")) {
                 HttpHandler.section = "user/";
                 HttpHandler.sort = "rising/";
-                HttpHandler.showV = "?showViral=false";
             } else {
                 Log.d(TAG, "Might be a problem");
             }
-//                activity.recreate();
         }
     }
-
-    public void build () {
-        try {
-            for(int i = 0; i < mItems.length(); i++) {
-                JSONObject item = mItems.getJSONObject(i);
-                Photo photo = new Photo();
-                if(item.getBoolean("is_album")) {
-                    photo.id = item.getString("cover");
-                } else {
-                    photo.id = item.getString("id");
-                }
-                photo.title = item.getString("title");
-                mPhotos.add(photo);
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        render(mPhotos);
-                    }
-                });
-            }
-
-        } catch (Exception e) {
-            Log.e("JSONerr" , "Something went wrong.");
-        }
-    }
-
-    private static class PhotoVH extends RecyclerView.ViewHolder {
-        ImageView photo;
-        TextView title;
-
-        public PhotoVH(View itemView) {
-            super(itemView);
-        }
-    }
-
-    private void render(final List<Photo> photos) {
-        RecyclerView rv = (RecyclerView)findViewById(R.id.rv_of_photos);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-
-        RecyclerView.Adapter<PhotoVH> adapter = new RecyclerView.Adapter<PhotoVH>() {
-            @NonNull
-            @Override
-            public PhotoVH onCreateViewHolder(ViewGroup parent, int viewType) {
-                PhotoVH vh = new PhotoVH(getLayoutInflater().inflate(R.layout.item, null));
-                vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
-                vh.title = (TextView) vh.itemView.findViewById(R.id.title);
-                return vh;
-            }
-
-            @Override
-            public void onBindViewHolder(PhotoVH holder, int position) {
-                Picasso.with(PhotosActivity.this).load("https://i.imgur.com/" +
-                        photos.get(position).id + ".jpg").into(holder.photo);
-                holder.title.setText(photos.get(position).title);
-            }
-
-            @Override
-            public int getItemCount() {
-                return photos.size();
-            }
-        };
-
-        rv.setAdapter(adapter);
-    }
-
-    public static void getUserID(String UserID) {
-        Log.d("TAG", UserID);
-        userID = UserID;
-    }
-
-    public static void callBackPhoto( List<Photo> photos, JSONArray items)
-    {
-         mPhotos = photos;
-         mItems = items;
-    }
-
-}
+ }
 
 
 
