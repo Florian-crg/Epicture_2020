@@ -20,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
+
 import java.io.File;
 import java.io.IOException;
 import okhttp3.MediaType;
@@ -35,10 +38,10 @@ import static com.example.epicture.LoginActivity.access_token;
 
 public class ProfileActivity  extends AppCompatActivity {
 
-    private ImageButton home_btn;
-    private ImageButton favorites_btn;
-    private ImageButton search_btn;
-    private ImageButton profil_btn;
+    private MaterialButton home_btn;
+    private MaterialButton favorites_btn;
+    private MaterialButton search_btn;
+    private MaterialButton profil_btn;
     private TextView name_profile;
     private ImageView Image;
     private Button choose_image;

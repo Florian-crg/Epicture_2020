@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -27,11 +28,10 @@ import static com.example.epicture.HttpHandler.*;
 import static com.example.epicture.LoginActivity.*;
 
 public class FavoriteActivity extends AppCompatActivity {
-    private ImageButton home_btn;
-    private ImageButton favorites_btn;
-    private ImageButton search_btn;
-    private ImageButton profil_btn;
-
+    private MaterialButton home_btn;
+    private MaterialButton favorites_btn;
+    private MaterialButton search_btn;
+    private MaterialButton profil_btn;
     private static JSONArray mItems;
 
     public static void callBackPhoto(JSONArray items)

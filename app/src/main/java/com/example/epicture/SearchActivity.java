@@ -7,11 +7,13 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
+
 public class SearchActivity extends AppCompatActivity {
-    private ImageButton home_btn;
-    private ImageButton favorites_btn;
-    private ImageButton search_btn;
-    private ImageButton profil_btn;
+    private MaterialButton home_btn;
+    private MaterialButton favorites_btn;
+    private MaterialButton search_btn;
+    private MaterialButton profil_btn;
 
     protected void onCreate(Bundle savedInstanceState) {
 

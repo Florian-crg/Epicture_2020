@@ -38,12 +38,10 @@ public class LoginActivity extends AppCompatActivity {
             account_username = argument4.split("=")[1];
                     Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
                     startActivity(next_activity);
-
       }
    }
 
      public void login(View view) {
-
          Uri login_Uri = Uri.parse("https://api.imgur.com/oauth2/authorize?client_id=" + clientId + "&response_type=" + "token");
         Intent connectIntent = new Intent(Intent.ACTION_VIEW, login_Uri);
 // Verify it resolves

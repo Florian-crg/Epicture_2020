@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -34,10 +35,10 @@ import okhttp3.OkHttpClient;
 public class PhotosActivity extends AppCompatActivity {
 
     // Local variable
-    private ImageButton home_btn;
-    private ImageButton favorites_btn;
-    private ImageButton search_btn;
-    private ImageButton profil_btn;
+    private MaterialButton home_btn;
+    private MaterialButton favorites_btn;
+    private MaterialButton search_btn;
+    private MaterialButton profil_btn;
     // Constante variable
     private static final String TAG = "PhotoActivity";
     private static final String clientId = "bb0c749c6403fd2";
