@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/header_bg_horiz"
         tools:context="com.example.epicture.PhotosActivity" >
         <TextView
             android:id="@+id/Home_text"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 app:layout_anchor="@id/bottom_app_bar"
                 app:srcCompat="@drawable/background"
-                app:backgroundTint="@color/colorPrimary"/>
+                app:backgroundTint="#fff"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <RelativeLayout
