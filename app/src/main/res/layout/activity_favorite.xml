@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/colorPrimaryDark"
-        tools:context="com.example.epicture.PhotosActivity" >
+        tools:context="com.example.epicture.FavoriteActivity" >
         <TextView
             android:id="@+id/Home_text"
             android:layout_width="wrap_content"
@@ -23,7 +23,6 @@
             android:layout_centerVertical="true"
             android:textColor="#FFFFFF"
             android:textColorHighlight="#FFFFFF"/>
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,7 +34,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/favorite_photos">
+            android:id="@+id/rv_of_photos">
         </androidx.recyclerview.widget.RecyclerView>
 
 
