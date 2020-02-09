@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class SearchActivity extends AppCompatActivity {
     private MaterialButton home_btn;
@@ -58,6 +59,8 @@ public class SearchActivity extends AppCompatActivity {
         this.favorites_btn = findViewById(R.id.favorites_button);
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
 
         home_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +96,13 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(next_activity);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next_activity = new Intent(getApplicationContext(), Upload_Images.class);
+                startActivity(next_activity);
             }
         });
 //        mSearchView.OnQueryTextListener(text);

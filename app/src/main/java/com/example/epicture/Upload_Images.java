@@ -37,44 +37,40 @@ import static com.example.epicture.LoginActivity.account_username;
 import static com.example.epicture.LoginActivity.access_token;
 
 
-public class ProfileActivity  extends AppCompatActivity {
+public class Upload_Images  extends AppCompatActivity {
 
-    private MaterialButton home_btn;
-    private MaterialButton favorites_btn;
-    private MaterialButton search_btn;
-    private MaterialButton profil_btn;
-    private TextView name_profile;
+    private TextView textUpload;
+    private ImageButton back;
     private ImageView Image;
-    private Button choose_image;
-    private Button send_image;
+    private MaterialButton send_image;
     private ProgressBar loading;
     private static final String clientId = "bb0c749c6403fd2";
     private static final int PICK_IMAGE_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
     public static String filePath = "";
     public static File file;
-    private FloatingActionButton fab;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_upload__images);
 
-        this.home_btn = findViewById(R.id.home_button);
-        this.favorites_btn = findViewById(R.id.favorites_button);
-        this.search_btn = findViewById(R.id.search_button);
-        this.profil_btn = findViewById(R.id.profil_button);
-        this.name_profile = findViewById(R.id.name_profile);
         this.Image = findViewById(R.id.image_taken);
-        this.choose_image = findViewById(R.id.choose_image);
         this.send_image = findViewById(R.id.send_image);
         this.loading = findViewById(R.id.loading);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
         loading.setVisibility(View.GONE);
+        this.back = findViewById(R.id.back);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
-        choose_image.setOnClickListener(new View.OnClickListener() {
+        Image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -94,64 +90,19 @@ public class ProfileActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loading.setVisibility(View.VISIBLE);
-                choose_image.setVisibility(View.GONE);
                 send_image.setVisibility(View.GONE);
                 new UploadImage().execute();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         loading.setVisibility(View.GONE);
-                        choose_image.setVisibility(View.VISIBLE);
                         send_image.setVisibility(View.VISIBLE);
                         Toast.makeText(getApplicationContext(),"Sent :)",Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }, 2000);
             }
         });
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), Upload_Images.class);
-                startActivity(next_activity);
-            }
-        });
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), PhotosActivity.class);
-                startActivity(next_activity);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-            }
-        });
-        favorites_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), FavoriteActivity.class);
-                startActivity(next_activity);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-            }
-        });
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivity(next_activity);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-            }
-        });
-        profil_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next_activity = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(next_activity);
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-            }
-        });
-        name_profile.setText(account_username);
     }
 
     private class UploadImage extends AsyncTask<Void, Void, Void> {
