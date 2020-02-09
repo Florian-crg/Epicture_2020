@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONArray;
 import java.util.List;
 
@@ -41,8 +42,8 @@ public class PhotosActivity extends AppCompatActivity {
         this.favorites_btn = findViewById(R.id.favorites_button);
         this.search_btn = findViewById(R.id.search_button);
         this.profil_btn = findViewById(R.id.profil_button);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final HttpHandler httpHandler = new HttpHandler(PhotosActivity.this, this);
-
         Spinner spinner=(Spinner)findViewById(R.id.spinner);
         String[] filters=getResources().getStringArray(R.array.filters);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.spinner,R.id.text, filters);
@@ -94,6 +95,13 @@ public class PhotosActivity extends AppCompatActivity {
                 startActivity(next_activity);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next_activity = new Intent(getApplicationContext(), Upload_Images.class);
+                startActivity(next_activity);
             }
         });
     }
