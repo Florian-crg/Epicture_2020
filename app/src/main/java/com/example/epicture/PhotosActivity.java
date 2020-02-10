@@ -2,12 +2,17 @@ package com.example.epicture;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,10 +49,25 @@ public class PhotosActivity extends AppCompatActivity {
         this.profil_btn = findViewById(R.id.profil_button);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final HttpHandler httpHandler = new HttpHandler(PhotosActivity.this, this);
-        Spinner spinner=(Spinner)findViewById(R.id.spinner);
+        final Spinner spinner=(Spinner)findViewById(R.id.spinner);
         String[] filters=getResources().getStringArray(R.array.filters);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,R.layout.spinner,R.id.text, filters);
+        adapter = new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item,filters){
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView txtView = (TextView) super.getView(position, convertView, parent);
+                txtView.setTextColor(Color.WHITE);
+                return txtView;
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent){
+                TextView txtView = (TextView) super.getDropDownView(position,convertView,parent);
+                txtView.setTextColor(Color.BLACK);
+                return txtView;
+            }
+        };
         spinner.setAdapter(adapter);
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
